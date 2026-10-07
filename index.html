@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nike Hyperflux 90+ · Ultra Essential</title>
+  <!-- Google Fonts: Bebas Neue (display), Inter (sans), Outfit (numeric) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- RESET & GLOBAL CANVAS ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1b1638 0%, #3a223f 40%, #7e2d36 75%, #9b3131 100%);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      padding: 24px;
+      overflow-x: hidden;
+      position: relative;
+      /* subtle noise texture overlay for grit */
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc1IiBudW1PY3RhdmVzPSIzIiAvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNmKSIgb3BhY2l0eT0iMC4wNSIgLz48L3N2Zz4=');
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+      mix-blend-mode: overlay;
+    }
+
+    /* ---------- MAIN LAYOUT: 3-COLUMN FULL SCREEN ---------- */
+    .main-layout {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 32px;
+      width: 100%;
+      max-width: 1600px;
+      min-height: 90vh;
+    }
+
+    /* ---------- LEFT SIDEBAR: PEOPLE ALSO VIEWS ---------- */
+    .left-sidebar {
+      flex: 0 0 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-top: 20px;
+      animation: slideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes slideInLeft {
+      0% { opacity: 0; transform: translateX(-30px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+
+    .sidebar-header {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .sidebar-header h2 {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #d1a5a8;
+      font-weight: 600;
+    }
+
+    .pagination {
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: rgba(255, 255, 255, 0.6);
+      font-weight: 500;
+    }
+
+    .pagination span {
+      color: #fff;
+      font-weight: 700;
+    }
+
+    /* product thumbnail cards */
+    .thumb-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .thumb-card:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .thumb-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: rgba(20, 15, 40, 0.6);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      overflow: hidden;
+    }
+
+    .thumb-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.4));
+      transition: transform 0.25s ease;
+    }
+
+    .thumb-card:hover .thumb-img img {
+      transform: scale(1.05);
+    }
+
+    .thumb-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .thumb-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+
+    .thumb-price {
+      font-size: 13px;
+      font-weight: 700;
+      color: #d1a5a8;
+    }
+
+    /* ---------- CENTER: HERO PRODUCT CARD ---------- */
+    .hero-card {
+      flex: 0 0 560px;
+      background: linear-gradient(180deg, #fdfbfb 0%, #e2888c 100%);
+      border-radius: 28px;
+      padding: 32px 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      animation: heroAppear 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+      position: relative;
+    }
+
+    @keyframes heroAppear {
+      0% { opacity: 0; transform: scale(0.96) translateY(20px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* card header */
+    .card-header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .card-header h1 {
+      font-family: 'Bebas Neue', Impact, 'Arial Narrow Bold', sans-serif;
+      font-size: 42px;
+      letter-spacing: 2px;
+      color: #1b1924;
+      line-height: 1;
+      font-weight: 400;
+      text-transform: uppercase;
+    }
+
+    .card-header .subtitle {
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #a54f52;
+      font-weight: 700;
+    }
+
+    /* hero visual area */
+    .hero-visual {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1.3/1;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      /* dot-grid radial burst */
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120%;
+      height: 120%;
+      background-image: radial-gradient(circle, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+      background-size: 16px 16px;
+      border-radius: 50%;
+      mask-image: radial-gradient(circle, black 30%, transparent 70%);
+      -webkit-mask-image: radial-gradient(circle, black 30%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-visual img {
+      width: 85%;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.3));
+      position: relative;
+      z-index: 2;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .hero-visual:hover img {
+      transform: scale(1.02) rotate(-1deg);
+    }
+
+    /* carousel arrows */
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 10;
+      color: #1b1924;
+    }
+
+    .carousel-arrow:hover {
+      transform: translateY(-50%) scale(1.08);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    .carousel-arrow.left {
+      left: 12px;
+    }
+
+    .carousel-arrow.right {
+      right: 12px;
+    }
+
+    .carousel-arrow svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    /* thumbnail row */
+    .thumb-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .thumb-row .thumb-tile {
+      width: 72px;
+      height: 72px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.5);
+      border: 2px solid transparent;
+      padding: 6px;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .thumb-row .thumb-tile:hover {
+      background: rgba(255, 255, 255, 0.8);
+      transform: scale(1.05);
+    }
+
+    .thumb-row .thumb-tile.active {
+      border-color: #d14d4d;
+      background: #fff;
+      box-shadow: 0 4px 12px rgba(209, 77, 77, 0.3);
+    }
+
+    .thumb-row .thumb-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* add to cart button */
+    .add-to-cart {
+      width: 100%;
+      background: #d14d4d;
+      border: none;
+      border-radius: 12px;
+      padding: 18px 24px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #ffffff;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 8px 20px rgba(209, 77, 77, 0.3);
+    }
+
+    .add-to-cart:hover {
+      transform: scale(1.02);
+      background: #bf4343;
+      box-shadow: 0 12px 28px rgba(209, 77, 77, 0.45);
+    }
+
+    .add-to-cart:active {
+      transform: scale(0.98);
+    }
+
+    /* ---------- RIGHT SIDEBAR: PRICING & VARIANT ---------- */
+    .right-sidebar {
+      flex: 0 0 340px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      padding-top: 20px;
+      animation: slideInRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes slideInRight {
+      0% { opacity: 0; transform: translateX(30px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+
+    /* price block */
+    .price-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .price-label {
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.6);
+      font-weight: 600;
+    }
+
+    .price-value {
+      font-family: 'Outfit', 'Inter', sans-serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    /* color swatches */
+    .swatch-section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .swatch-label {
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.6);
+      font-weight: 600;
+    }
+
+    .swatch-row {
+      display: flex;
+      gap: 14px;
+    }
+
+    .swatch {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 2px solid transparent;
+      position: relative;
+    }
+
+    .swatch:hover {
+      transform: scale(1.1);
+    }
+
+    .swatch.active {
+      border-color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2), 0 0 20px rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    /* dual-tone active swatch */
+    .swatch.dual {
+      background: linear-gradient(135deg, #4a7cff 0%, #ff8c42 100%);
+    }
+
+    .swatch.lavender {
+      background: #b8a9e8;
+    }
+
+    .swatch.teal {
+      background: #5f9ea0;
+    }
+
+    .swatch.ochre {
+      background: #cc8b3c;
+    }
+
+    /* size selector */
+    .size-section {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .size-label {
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.6);
+      font-weight: 600;
+    }
+
+    .size-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .size-tile {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 14px 8px;
+      font-family: 'Outfit', 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+
+    .size-tile:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .size-tile:active {
+      transform: scale(0.95);
+    }
+
+    .size-tile.active {
+      background: #ffffff;
+      color: #1b1924;
+      border-color: #ffffff;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      transform: scale(1.02);
+    }
+
+    /* ---------- RESPONSIVE ADJUSTMENTS ---------- */
+    @media (max-width: 1300px) {
+      .main-layout {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .left-sidebar {
+        flex: 0 0 100%;
+        max-width: 600px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .thumb-card {
+        flex: 0 0 160px;
+      }
+
+      .sidebar-header {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 1000px) {
+      .hero-card {
+        flex: 0 0 100%;
+        max-width: 560px;
+      }
+
+      .right-sidebar {
+        flex: 0 0 100%;
+        max-width: 560px;
+      }
+
+      .main-layout {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .left-sidebar {
+        max-width: 560px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 12px;
+      }
+
+      .hero-card {
+        padding: 20px;
+        border-radius: 20px;
+      }
+
+      .card-header h1 {
+        font-size: 32px;
+      }
+
+      .price-value {
+        font-size: 36px;
+      }
+
+      .size-grid {
+        gap: 8px;
+      }
+
+      .size-tile {
+        padding: 10px 6px;
+        font-size: 14px;
+      }
+
+      .carousel-arrow {
+        width: 36px;
+        height: 36px;
+      }
+
+      .carousel-arrow svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .thumb-row .thumb-tile {
+        width: 56px;
+        height: 56px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="main-layout">
+
+    <!-- ========== LEFT SIDEBAR: PEOPLE ALSO VIEWS ========== -->
+    <aside class="left-sidebar">
+      <div class="sidebar-header">
+        <h2>People Also Views</h2>
+        <div class="pagination"><span>1</span> OF <span>2</span></div>
+      </div>
+
+      <!-- Product thumbnail 1 -->
+      <div class="thumb-card">
+        <div class="thumb-img">
+          <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&auto=format&fit=crop&q=80" alt="Nike Air Zoom">
+        </div>
+        <div class="thumb-info">
+          <span class="thumb-name">Air Zoom Type</span>
+          <span class="thumb-price">£145</span>
+        </div>
+      </div>
+
+      <!-- Product thumbnail 2 -->
+      <div class="thumb-card">
+        <div class="thumb-img">
+          <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=400&auto=format&fit=crop&q=80" alt="Nike React">
+        </div>
+        <div class="thumb-info">
+          <span class="thumb-name">React Infinity</span>
+          <span class="thumb-price">£160</span>
+        </div>
+      </div>
+
+      <!-- Product thumbnail 3 -->
+      <div class="thumb-card">
+        <div class="thumb-img">
+          <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400&auto=format&fit=crop&q=80" alt="Nike Pegasus">
+        </div>
+        <div class="thumb-info">
+          <span class="thumb-name">Pegasus 40</span>
+          <span class="thumb-price">£130</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ========== CENTER: HERO PRODUCT CARD ========== -->
+    <main class="hero-card">
+      <div class="card-header">
+        <h1>Nike Hyperflux 90+</h1>
+        <span class="subtitle">Ultra Essential</span>
+      </div>
+
+      <!-- Hero visual with carousel arrows -->
+      <div class="hero-visual">
+        <button class="carousel-arrow left" aria-label="Previous image">
+          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+
+        <img id="mainShoe" src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=800&auto=format&fit=crop&q=80" alt="Nike Hyperflux 90+ sneaker">
+
+        <button class="carousel-arrow right" aria-label="Next image">
+          <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
+      </div>
+
+      <!-- Thumbnail row -->
+      <div class="thumb-row">
+        <div class="thumb-tile active" data-src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=800&auto=format&fit=crop&q=80">
+          <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=200&auto=format&fit=crop&q=80" alt="Angle 1">
+        </div>
+        <div class="thumb-tile" data-src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&auto=format&fit=crop&q=80">
+          <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=200&auto=format&fit=crop&q=80" alt="Angle 2">
+        </div>
+        <div class="thumb-tile" data-src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&auto=format&fit=crop&q=80">
+          <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=200&auto=format&fit=crop&q=80" alt="Angle 3">
+        </div>
+      </div>
+
+      <!-- Primary CTA -->
+      <button class="add-to-cart" id="addToCartBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+        </svg>
+        Add to Cart
+      </button>
+    </main>
+
+    <!-- ========== RIGHT SIDEBAR: PRICING & VARIANT ========== -->
+    <aside class="right-sidebar">
+      <!-- Price -->
+      <div class="price-block">
+        <span class="price-label">Price</span>
+        <span class="price-value">£120</span>
+      </div>
+
+      <!-- Color swatches -->
+      <div class="swatch-section">
+        <span class="swatch-label">Colourway</span>
+        <div class="swatch-row">
+          <div class="swatch dual active" aria-label="Blue / Orange"></div>
+          <div class="swatch lavender" aria-label="Lavender"></div>
+          <div class="swatch teal" aria-label="Teal"></div>
+          <div class="swatch ochre" aria-label="Ochre"></div>
+        </div>
+      </div>
+
+      <!-- Size selector -->
+      <div class="size-section">
+        <span class="size-label">Select Size</span>
+        <div class="size-grid" id="sizeGrid">
+          <button class="size-tile" data-size="7">7</button>
+          <button class="size-tile" data-size="7.5">7.5</button>
+          <button class="size-tile" data-size="8">8</button>
+          <button class="size-tile" data-size="8.5">8.5</button>
+          <button class="size-tile" data-size="9">9</button>
+          <button class="size-tile active" data-size="9.5">9.5</button>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- ---------- INTERACTIVE SCRIPT ---------- -->
+  <script>
+    (function() {
+      // ---- Size selection micro-interaction ----
+      const sizeTiles = document.querySelectorAll('.size-tile');
+      sizeTiles.forEach(tile => {
+        tile.addEventListener('click', function() {
+          // remove active from all
+          sizeTiles.forEach(t => t.classList.remove('active'));
+          // add active to clicked
+          this.classList.add('active');
+          // micro scale animation
+          this.style.transform = 'scale(0.95)';
+          setTimeout(() => {
+            this.style.transform = '';
+          }, 100);
+        });
+      });
+
+      // ---- Color swatch selection ----
+      const swatches = document.querySelectorAll('.swatch');
+      swatches.forEach(swatch => {
+        swatch.addEventListener('click', function() {
+          swatches.forEach(s => s.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+
+      // ---- Hero image thumbnail carousel ----
+      const mainShoe = document.getElementById('mainShoe');
+      const thumbTiles = document.querySelectorAll('.thumb-tile');
+      const prevBtn = document.querySelector('.carousel-arrow.left');
+      const nextBtn = document.querySelector('.carousel-arrow.right');
+      
+      // Collect all image sources
+      const images = [
+        'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=800&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&auto=format&fit=crop&q=80'
+      ];
+      let currentIndex = 0;
+
+      function updateMainImage(index) {
+        // fade out
+        mainShoe.style.opacity = '0';
+        mainShoe.style.transform = 'scale(0.95)';
+        
+        setTimeout(() => {
+          mainShoe.src = images[index];
+          mainShoe.style.opacity = '1';
+          mainShoe.style.transform = 'scale(1)';
+          
+          // update active thumbnail
+          thumbTiles.forEach((tile, i) => {
+            tile.classList.toggle('active', i === index);
+          });
+        }, 150);
+      }
+
+      // thumbnail click handlers
+      thumbTiles.forEach((tile, index) => {
+        tile.addEventListener('click', () => {
+          currentIndex = index;
+          updateMainImage(currentIndex);
+        });
+      });
+
+      // arrow navigation
+      prevBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        updateMainImage(currentIndex);
+      });
+
+      nextBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % images.length;
+        updateMainImage(currentIndex);
+      });
+
+      // ---- Add to Cart feedback animation ----
+      const addToCartBtn = document.getElementById('addToCartBtn');
+      addToCartBtn.addEventListener('click', function() {
+        const originalText = this.innerHTML;
+        // quick success feedback
+        this.innerHTML = '✓ ADDED';
+        this.style.background = '#4caf50';
+        this.style.transform = 'scale(0.97)';
+        
+        setTimeout(() => {
+          this.innerHTML = originalText;
+          this.style.background = '#d14d4d';
+          this.style.transform = '';
+        }, 1500);
+      });
+
+      // ---- subtle parallax on hero card (optional) ----
+      document.addEventListener('mousemove', (e) => {
+        const heroCard = document.querySelector('.hero-card');
+        if (!heroCard) return;
+        const rect = heroCard.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const deltaX = (e.clientX - centerX) / 40;
+        const deltaY = (e.clientY - centerY) / 40;
+        heroCard.style.transform = `perspective(1200px) rotateY(${deltaX * 0.3}deg) rotateX(${-deltaY * 0.3}deg)`;
+      });
+
+      // reset parallax on mouse leave
+      document.addEventListener('mouseleave', () => {
+        const heroCard = document.querySelector('.hero-card');
+        if (heroCard) {
+          heroCard.style.transform = 'perspective(1200px) rotateY(0deg) rotateX(0deg)';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
